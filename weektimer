@@ -4,122 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,700|Montserrat:900">
-    <title>Document</title>
+    <title>Countdown Timer</title>
     <style>
-
-body{
-    background-color: white;
-}
-  
-#timer {
-  color: #eeeeee;
-  text-align: center;
-  text-transform: uppercase;
-  font-family: 'Inter', sans-serif;
-  font-size: .7em;
-  letter-spacing: 5px;
-}
-
-.weeks, .days, .hours, {
-  display: inline-block;
-  padding: 20px;
-  width: 100px;
-  border-radius: 5px;
-}
-
-.weeks {
-  background: #EF2F3C;
-}
-
-.days {
-  background: #eeeeee;
-  color: #183059;
-}
-
-.hours {
-  background: #276FBF;
-}
-
-.numbers {
-  font-family: 'Montserrat', sans-serif;
-  color:  #183059;
-  font-size: 4em;
-  text-align: center;
-}
-
-.white {
-  position: absolute;
-  background:  #eeeeee;
-  height: 85px;
-  width: 75px;
-  left: 30%;
-  top: 2%;
-}
-
-.red {
-  position: absolute;
-  background:  #EF2F3C;
-  left: 18%;
-  top: 9%;
-  height: 65px;
-  width: 70px;
- 
-}
-
-.blue {
-  position: absolute;
-  background:  #276FBF;
-  height: 80px;
-  width: 80px;
-  left: 60%;
-  top: 5%;
-
-
-}
-
-
+        body { background-color: white; }
+        #timer {
+            color: #eeeeee;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-size: .7em;
+            letter-spacing: 5px;
+        }
+        .weeks, .days, .hours {
+            display: inline-block;
+            padding: 20px;
+            width: 100px;
+            border-radius: 5px;
+        }
+        .weeks { background: #9670C1; }
+        .days {
+            background: #6D196D;
+        }
+        .hours { background: #45AEFF; }
+        .numbers {
+            font-family: 'Montserrat', sans-serif;
+            color: #eeeeee;
+            font-size: 4em;
+            text-align: center;
+            text-shadow: 
+        	-1px -1px 0 #000, 
+        	1px -1px 0 #000,  
+        	-1px 1px 0 #000, 
+        	1px 1px 0 #000;  
+        }
     </style>
 </head>
 <body>
-    
-<div id="timer">
-      <div class="weeks"> 
-          <div  id="weeks" class="numbers"> </div>weeks</div> 
-      <div class="days"> 
-          <div id="days" class="numbers "> </div>days</div> 
-      <div class="hours"> 
-        <div  id="hours" class="numbers"> </div>hours</div> 
-      </div>
-
-</div>
-
+    <div id="timer">
+        <div class="weeks">
+            <div id="weeks" class="numbers"></div>weeks
+        </div>
+        <div class="days">
+            <div id="days" class="numbers"></div>days
+        </div>
+        <div class="hours">
+            <div id="hours" class="numbers"></div>hours
+        </div>
+    </div>
 </body>
 <script>
-    const year = new Date().getFullYear();
-const myDate = new Date('Oct 15, 2025 00:00:00');
-console.log(myDate);
+    // Create the target date in the local timezone
+    const myDate = new Date(2025, 9, 15, 0, 0, 0); // October = 9 (0-indexed)
+    console.log("Target Date (Localized):", myDate.toLocaleString());
 
-// countdown
-let timer = setInterval(function() {
+    // Countdown
+    let timer = setInterval(function() {
+        // Get today's date
+        const today = new Date();
 
-  // get today's date
-  const today = new Date().getTime();
+        // Get the timestamp in milliseconds (localized to the system timezone)
+        const localizedTimestamp = today.getTime();
 
-  // get the difference
-  const diff = myDate - today;
+        console.log("Localized Timestamp (ms):", localizedTimestamp);
 
-  // math
+        // Get the difference
+        const diff = myDate - today;
 
-  let weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
-  let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        // Math
+        let weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+        let days = Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-  // display
-  document.getElementById("weeks").innerHTML=weeks
-  document.getElementById("days").innerHTML=days
-  document.getElementById("hours").innerHTML=hours
-  
-
-}, 1);
+        // Display
+        document.getElementById("weeks").innerHTML = weeks;
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+    }, 1000); // Update every second
 </script>
 </html>
+
