@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,700|Montserrat:900">
+    <title>Countdown Timer</title>
+    <style>
+        body { background-color: white; }
+        #timer {
+            color: #eeeeee;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-size: .7em;
+            letter-spacing: 5px;
+        }
+        .weeks, .days, .hours {
+            display: inline-block;
+            padding: 20px;
+            width: 100px;
+            border-radius: 5px;
+        }
+        .weeks { background: #9670C1; }
+        .days {
+            background: #6D196D;
+        }
+        .hours { background: #45AEFF; }
+        .numbers {
+            font-family: 'Montserrat', sans-serif;
+            color: #eeeeee;
+            font-size: 4em;
+            text-align: center;
+            text-shadow: 
+        	-1px -1px 0 #000, 
+        	1px -1px 0 #000,  
+        	-1px 1px 0 #000, 
+        	1px 1px 0 #000;  
+        }
+        #footer-text {
+            text-align: center; /* Center the text horizontally */
+            font-family: 'Inter', sans-serif; /* Consistent font */
+            font-size: 1.5em; /* Adjust font size */
+            color: #070742; /* Dark blue color */
+            margin-top: 16px; /* Space above the text */
+            font-style: italic; /* Italicize the text */
+    		font-weight: bold; /* Make the text bold */
+        }
+    </style>
+</head>
+<body>
+    <div id="timer">
+        <div class="weeks">
+            <div id="weeks" class="numbers"></div>weeks
+        </div>
+        <div class="days">
+            <div id="days" class="numbers"></div>days
+        </div>
+        <div class="hours">
+            <div id="hours" class="numbers"></div>hours
+        </div>
+    </div>
+    <div id="footer-text">until test day success!&ensp;&#128640</div>
+</body>
+<script>
+    // Create the target date in the local timezone
+    const myDate = new Date(2026, 1, 14, 0, 0, 0); // (0-indexed) Jan(0), Feb(1), etc.
+    console.log("Target Date (Localized):", myDate.toLocaleString());
+
+    // Countdown
+    let timer = setInterval(function() {
+        // Get today's date
+        const today = new Date();
+
+        // Get the timestamp in milliseconds (localized to the system timezone)
+        const localizedTimestamp = today.getTime();
+
+        console.log("Localized Timestamp (ms):", localizedTimestamp);
+
+        // Get the difference
+        const diff = myDate - today;
+
+        // Math
+        let weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+        let days = Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+        // Display
+        document.getElementById("weeks").innerHTML = weeks;
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+    }, 1000); // Update every second
+</script>
+</html>
